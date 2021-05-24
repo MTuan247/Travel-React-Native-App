@@ -1,0 +1,21 @@
+import * as firebase from 'firebase';
+import '@firebase/auth';
+import '@firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAW42eRWnaaJRY0JRysfVDJ5Eq6hQJEoyg",
+  authDomain: "fir-project-2c4c0.firebaseapp.com",
+  databaseURL: "https://fir-project-2c4c0-default-rtdb.firebaseio.com",
+  projectId: "fir-project-2c4c0",
+  storageBucket: "fir-project-2c4c0.appspot.com",
+  messagingSenderId: "591628393084",
+  appId: "1:591628393084:web:629e8fccc8a9e56fd547f9",
+  measurementId: "G-LNQTHYKJ3H"
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+// firebase.initializeApp(firebaseConfig);
+
+export { firebase };
