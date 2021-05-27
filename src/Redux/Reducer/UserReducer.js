@@ -44,6 +44,16 @@ export default function UserReducer(state = guestUser, action) {
             firebase.firestore().collection('users').doc(uinfo.id).update({ favorite: uinfo.favorite })
             return uinfo;
 
+        case 'RENAME':
+            var uinfo = {
+                id: state.id,
+                email: state.email,
+                fullName: state.fullName,
+                favorite: [...state.favorite],
+            }
+            uinfo.fullName = action.payload;
+            return uinfo;
+
         default:
             return state;
     }

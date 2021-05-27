@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Text, View, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, Text, View, ScrollView, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { callNumber, openUrl, sendEmail } from '../Component/OpenUrl'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Menu } from 'react-native-paper';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import { Input } from 'react-native-elements';
 
 const contact = {
   address: "Hà Lỗ, Liên Hà, Đông Anh, Hà Nội",
@@ -14,81 +15,117 @@ const contact = {
 };
 
 function MenuHeader() {
+
+  const primaryColor = useSelector(state => state.theme.colors.primary)
+
+  const menuButtonStyle = [styles.menuButton, { backgroundColor: primaryColor }];
+
   return (
     <View style={styles.menuHeaderView} >
-      <View>
+      <View style={styles.menuComponent}>
         <TouchableOpacity
-          style={styles.button}
+          style={menuButtonStyle}
           onPress={() => callNumber(contact.phoneNumber)}>
-          <Text style={styles.buttonTitle}>Hotline</Text>
+          <Ionicons name="call" size={30} color="white" />
         </TouchableOpacity>
-        <Text>Phone: {contact.phoneNumber} </Text>
+        <Text style={styles.menuButtonLabel}>Phone </Text>
       </View>
-      <View>
+      <View style={styles.menuComponent}>
         <TouchableOpacity
-          style={styles.button}
+          style={menuButtonStyle}
           onPress={() => sendEmail(contact.email)}>
-          <Text style={styles.buttonTitle}>Send Email</Text>
+          <FontAwesome5 name="paper-plane" size={30} color="white" />
         </TouchableOpacity>
-        <Text>Email: {contact.email} </Text>
+        <Text style={styles.menuButtonLabel} numberOfLines={1}>Email </Text>
       </View>
-      <View>
+      <View style={styles.menuComponent}>
         <TouchableOpacity
-          style={styles.button}
+          style={menuButtonStyle}
           onPress={() => openUrl(contact.website)}>
-          <Text style={styles.buttonTitle}>Send Email</Text>
+          <MaterialCommunityIcons name="web" size={30} color="white" />
         </TouchableOpacity>
-        <Text>Website: {contact.website} </Text>
+        <Text style={styles.menuButtonLabel} numberOfLines={1} >Website </Text>
       </View>
     </View>
   )
 }
 
-function SendMessageForm(){
-  return(
-    <View>
-      
+function SendMessageForm() {
+  return (
+    <View style={styles.menuHeaderView}>
+      <Input
+        placeholder='SUBJECT'
+      />
+      <Input
+        multiline
+        numberOfLines={5}
+        placeholder='MESSAGE'
+      />
     </View>
   )
 }
 
 export default function ContactScreen() {
 
+  const primaryColor = useSelector(state => state.theme.colors.primary)
+
   return (
-    <View style={styles.container} >
-      <Text style={styles.title} >Contact Us</Text>
+    <ScrollView style={[styles.container]} >
+      <Text style={[styles.title, { color: primaryColor }]} >Contact Us</Text>
       <MenuHeader />
+      <Text style={[styles.title, { color: primaryColor }]} >Message</Text>
       <SendMessageForm />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white'
+    // alignItems: 'center',
+    backgroundColor: '#f2f2f2'
   },
   title: {
-
+    color: '#3399ff',
+    fontSize: 20,
+    fontWeight: "100",
+    alignSelf: 'center',
+    margin: 10,
   },
 
   menuHeaderView: {
+    alignSelf: 'center',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     flexDirection: 'row',
+    backgroundColor: 'white',
+    margin: 5,
+    borderRadius: 5,
+    width: Dimensions.get('window').width * 0.95,
   },
-  
+
+  menuComponent: {
+    // width: Dimensions.get('window').width/4,
+  },
+
   menuButton: {
     borderRadius: 25,
-    backgroundColor: '#788eec',
-    marginLeft: 30,
-    marginRight: 30,
+    backgroundColor: '#3399ff',
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 20,
     height: 48,
     width: 48,
     alignItems: "center",
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+
+  menuButtonLabel: {
+    color: '#4d4d4d',
+    fontSize: 12,
+    fontWeight: "normal",
+    alignSelf: 'center',
   },
 
   logo: {
@@ -112,8 +149,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#788eec',
-    marginLeft: 30,
-    marginRight: 30,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 20,
     height: 48,
     width: 180,

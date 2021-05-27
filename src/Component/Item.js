@@ -33,14 +33,14 @@ export default function Item(props){
   
       return(
         <View >
-          <TouchableOpacity style={styles.item} onPress={() => navigation.push('DetailScreen',{ title: props.title, coverImage: props.coverImage }) } >
+          <TouchableOpacity style={styles.item} onPress={() => navigation.push('DetailScreen',{ title: props.title, coverImage: props.coverImage, address: props.address, description: props.description, }) } >
             <Image source={{uri: props.coverImage}} style={styles.coverImage} />
             <View style={styles.textView}>
               <Text style={styles.textStyle} numberOfLines={1} >
                 {props.title}
               </Text>
               <Text numberOfLines={1} >
-                Dịa chỉ: {props.address}
+                Địa chỉ: {props.address}
               </Text>
               <TouchableOpacity onPress={handleFavorite} style={{ alignSelf:'flex-end', marginRight: 20 }} >
                 <Ionicons name={heartIcon} size={25} color='red' />

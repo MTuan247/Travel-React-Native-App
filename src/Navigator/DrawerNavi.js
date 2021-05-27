@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackHandler, Alert, View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native'
 import {
   createDrawerNavigator,
   DrawerItem,
@@ -13,21 +13,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import BottomTabNavi from './BottomTabNavi';
 
 function CustomDrawerContent(props) {
-  const handleExit = () => {
-    Alert.alert(
-      'Exit App',
-      'Do you want to exit?',
-      [
-        { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        { text: 'Yes', onPress: () => BackHandler.exitApp() },
-      ],
-      { cancelable: false });
-    return true;
-  }
 
   const dispatch = useDispatch();
 
-  const user = useSelector(state => state.uinfo.fullName);
+  const user = useSelector(state => state.uinfo);
 
   return (
     <DrawerContentScrollView {...props}>
@@ -37,13 +26,16 @@ function CustomDrawerContent(props) {
             style={styles.logo}
             source={require('../../image/firebase-logo.png')}
           />
-          <Text style={styles.text}>Hello {user} </Text>
+          <View style={{alignItems: 'center', flexDirection: 'column'}}>
+            <Text style={[styles.text,{color: '#bfbfbf' }]}>Welcome </Text>
+            <Text style={styles.text}>{user.fullName}</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <DrawerItemList {...props} />
       <View style={[styles.area, { borderTopWidth: 1, }]}>
         {
-          (user != "Guest") ? (
+          (user.id != "Guest") ? (
             <DrawerItem
               label="Logout"
               icon={({ color, size }) => <Ionicons name="log-out" size={size} color={color} />}
@@ -57,12 +49,6 @@ function CustomDrawerContent(props) {
             />
           )
         }
-        <DrawerItem
-          label="Exit"
-          icon={({ color, size }) => <MaterialCommunityIcons name="exit-run" size={size} color={color} />}
-          onPress={() => handleExit()}
-        />
-
       </View>
     </DrawerContentScrollView>
   );
@@ -90,7 +76,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    alignSelf: 'center',
+    // alignSelf: 'center',
     fontWeight: '400',
     fontSize: 16,
     color: "#4d4d4d",

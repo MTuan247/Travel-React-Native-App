@@ -9,7 +9,7 @@ export default function DetailScreen({route}){
             <Image 
                 source={{uri : route.params.coverImage}}
                 style={styles.coverImage}
-                resizeMode='contain'
+                resizeMode='cover'
             />
             <View style={styles.tab}>
                 <TouchableOpacity style={styles.contactButton} onPress={() => callNumber('0339642686')}>
@@ -23,8 +23,14 @@ export default function DetailScreen({route}){
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
+                <Text >
+                    Địa chỉ: {route.params.address}
+                </Text>
+                <Text style={{fontWeight: 'bold'}}>
+                    Mô tả:
+                </Text>
                 <Text>
-                    Decription
+                    {route.params.description}
                 </Text>
             </View>
         </View>
@@ -40,7 +46,7 @@ const styles = StyleSheet.create({
     },
 
     coverImage: {
-        width:  W,
+        width: W,
         height: H/3,
     },
 

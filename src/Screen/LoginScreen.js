@@ -4,8 +4,8 @@ import { firebase } from '../Firebase/config';
 import { useDispatch } from 'react-redux';
 
 export default function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('mtuan2472000@gmail.com');
+    const [password, setPassword] = useState('123456');
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch()
@@ -108,7 +108,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 30,
         marginRight: 30,
-        paddingLeft: 16
+        paddingLeft: 16,
+        borderBottomWidth: 1,
+        borderColor: '#aaaaaa',
     },
     button: {
         backgroundColor: '#788eec',

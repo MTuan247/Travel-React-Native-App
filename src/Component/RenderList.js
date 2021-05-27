@@ -54,7 +54,7 @@ export default function RenderList() {
       extraData={[selectedType, searchQuery]}
       renderItem={({ item }) => {
         if ((item.type == selectedType || selectedType == "All") && checkSearch(item.title) )
-          return <Item title={item.title} coverImage={item.cover} type={item.type} address={item.address} id={item.id} />
+          return <Item title={item.title} coverImage={item.cover} type={item.type} address={item.address} id={item.id} description={item.description}/>
       }}
       // renderItem={({ item }) => <Item title={item.title} coverImage={item.cover} type={item.type} address={item.address} id={item.id} /> }
       numColumns="1"

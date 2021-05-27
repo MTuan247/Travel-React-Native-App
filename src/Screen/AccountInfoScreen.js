@@ -1,50 +1,118 @@
-import React from 'react'
-import {View, Text, Button, StyleSheet, Image} from 'react-native'
-import {useSelector, useDispatch} from 'react-redux'
+import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Dimensions } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigation } from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-function LogoutButton(){
+function LogoutButton() {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
         dispatch({ type: "LOGOUT" })
     }
 
-    return(
-        <Button style={styles.logoutButton} title="Log out" onPress={() => handleLogout() } />
+    return (
+        <TouchableOpacity style={styles.button} onPress={() => handleLogout()} >
+            <Text style={styles.buttonTitle}>Logout</Text>
+        </TouchableOpacity>
     )
 }
 
-export default function AccountInfo(){
+function ChangeInfo() {
+    const uinfo = useSelector(state => state.uinfo)
+    const [fullName, setFullName] = useState(uinfo.fullName)
+    const dispatch = useDispatch()
+    const changeName = (fullName) => {
+        dispatch({type: 'RENAME', payload: fullName})
+    }
+
+    return (
+        <View>
+            <Text style={styles.textStyle} >User Name: </Text>
+            <TextInput
+                style={styles.textInfo}
+                placeholder='Full Name'
+                placeholderTextColor="#aaaaaa"
+                onChangeText={(text) => setFullName(text)}
+                value={fullName}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+            />
+            
+        </View>
+
+    )
+}
+
+export default function AccountInfo() {
 
     const uinfo = useSelector(state => state.uinfo)
+    const navigation = useNavigation();
 
-    return(
-        <View style={styles.container}>
+    return (
+        <ScrollView style={styles.container}>
             <Image
                 style={styles.logo}
                 source={require('../../image/firebase-logo.png')}
             />
-            {/* <Text style={styles.autoAlign} >id: {uinfo.id} </Text> */}
-            <Text style={styles.textStyle} >Email: {uinfo.email} </Text>
-            <Text style={styles.textStyle} >FullName: {uinfo.fullName} </Text>
-            {/* <Text style={styles.autoAlign} >favorite: {uinfo.favorite}</Text> */}
+            <Text style={styles.textStyle} >Email: </Text>
+            <Text style={styles.textInfo}>{uinfo.email}</Text>
+            {/* <Text style={styles.textStyle} >User Name: </Text>
+            <Text style={styles.textInfo}>{uinfo.fullName}</Text> */}
+            <ChangeInfo />
             <LogoutButton />
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        backgroundColor: '#f2f2f2',
     },
 
-    textStyle:{
-        alignSelf: 'center',
-        margin: 15,
+    textStyle: {
+        // alignSelf: 'center',
+        margin: 2,
+        marginLeft: 10,
+        fontSize: 15
     },
 
-    logoutButton: {
+    textInfo: {
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 5,
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 10,
+        borderColor: '#a6a6a6',
+    },
+
+    logo: {
+        height: 120,
+        width: 120,
+        alignSelf: "center",
+        margin: 20
+    },
+
+    input: {
+        height: 48,
+        width: 200,
+        borderRadius: 5,
+        overflow: 'hidden',
+        alignSelf: "center",
+        backgroundColor: 'white',
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 5,
+        marginRight: 5,
+        paddingLeft: 16,
+        borderBottomWidth: 1,
+        borderColor: '#aaaaaa',
+    },
+
+    button: {
         backgroundColor: '#788eec',
         marginLeft: 30,
         marginRight: 30,
@@ -53,13 +121,12 @@ const styles = StyleSheet.create({
         width: 180,
         borderRadius: 5,
         alignItems: "center",
-        justifyContent: 'center'
-    },
-
-    logo: {
-        height: 120,
-        width: 120,
+        justifyContent: 'center',
         alignSelf: "center",
-        margin: 30
+    },
+    buttonTitle: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: "bold"
     },
 })

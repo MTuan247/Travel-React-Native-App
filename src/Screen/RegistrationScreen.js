@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { firebase } from '../Firebase/config'
 
@@ -10,7 +10,6 @@ export default function RegistrationScreen({ navigation }) {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const uinfo = useSelector(state => state.uinfo);
     const dispatch = useDispatch();
 
     const onFooterLinkPress = () => {
@@ -31,6 +30,8 @@ export default function RegistrationScreen({ navigation }) {
                     id: uid,
                     email,
                     fullName,
+                    phoneNumber: '',
+                    address: '',
                     favorite: [],
                 };
                 const usersRef = firebase.firestore().collection('users')
@@ -133,7 +134,9 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginLeft: 5,
         marginRight: 5,
-        paddingLeft: 16
+        paddingLeft: 16,
+        borderBottomWidth: 1,
+        borderColor: '#aaaaaa',
     },
     button: {
         backgroundColor: '#788eec',

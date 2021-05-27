@@ -47,7 +47,7 @@ function FavoriteList() {
                 extraData={ favorite}
                 renderItem={({ item }) => {
                     if (item.type == selectedType || selectedType == "All")
-                        return <Item title={item.title} coverImage={item.cover} type={item.type} address={item.address} id={item.id} />
+                        return <Item title={item.title} coverImage={item.cover} type={item.type} address={item.address} id={item.id} description={item.description} />
                 }}
                 // renderItem={({ item }) => <Item title={item.title} coverImage={item.cover} type={item.type} address={item.address} id={item.id} /> }
                 numColumns="1"
@@ -64,7 +64,7 @@ export default function FavoriteScreen({ navigation }) {
 
     useFocusEffect(() => {
         if (uinfo.id == 'Guest') {
-            navigation.navigate('Home');
+            navigation.navigate('Account');
             alert('Please login to use favorite list')
         } else {
             dispatch({type:"SETTYPE", payload:"All"})

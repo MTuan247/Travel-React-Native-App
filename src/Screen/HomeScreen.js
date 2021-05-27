@@ -67,18 +67,6 @@ function ListItem() {
           icon: 'md-cube',
           target: 'ListScreen',
         },
-        // {
-        //   key: 'Quick Booking',
-        //   color: '#4942ff',
-        //   icon: 'calendar',
-        //   target: 'ListScreen',
-        // },
-        // {
-        //   key: 'Hotline',
-        //   color: '#ff9142',
-        //   icon: 'call',
-        //   target: 'ListScreen',
-        // },
         {
           key: 'Phản ánh',
           color: '#fced5d',
