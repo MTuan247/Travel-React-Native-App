@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native';
+import { ScrollView, Dimensions } from 'react-native';
 
 import RenderList from '../Component/RenderList'
 
@@ -9,8 +9,8 @@ const W = Dimensions.get('window').width;
 export default function ListScreen({ props, route }) {
 
   return (
-    <View >
+    <ScrollView >
       <RenderList/>
-    </View>
+    </ScrollView>
   );
 }

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Text, View, ScrollView, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { Text, View, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { useSelector } from 'react-redux';
 import { callNumber, openUrl, sendEmail } from '../Component/OpenUrl'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-import { Input } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 
 const contact = {
   address: "Hà Lỗ, Liên Hà, Đông Anh, Hà Nội",
@@ -51,6 +51,9 @@ function MenuHeader() {
 }
 
 function SendMessageForm() {
+
+  const primaryColor = useSelector(state => state.theme.colors.primary)
+
   return (
     <View style={styles.menuHeaderView}>
       <Input
@@ -60,6 +63,12 @@ function SendMessageForm() {
         multiline
         numberOfLines={5}
         placeholder='MESSAGE'
+      />
+      <Button buttonStyle={{
+        width: 180,
+        backgroundColor: primaryColor,
+      }}
+        title="Send"
       />
     </View>
   )
@@ -101,6 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     margin: 5,
     borderRadius: 5,
+    paddingBottom: 10,
     width: Dimensions.get('window').width * 0.95,
   },
 
