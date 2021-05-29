@@ -3,7 +3,7 @@ import {firebase} from '../../Firebase/config'
 const guestUser = {
     id: "Guest",
     // email: "Guest@nmt.com",
-    // fullName: 'Guest',
+    fullName: 'Guest',
     favorite: [],
 }
 

@@ -13,7 +13,7 @@ export default function Item(props){
     const id = useSelector(state => state.uinfo.id)
   
     useEffect(() => {
-      var index = favorite.indexOf(props.id)
+      var index = favorite.indexOf(props.value.id)
       if(index > -1 ){
         setHeartIcon('heart')
       } else setHeartIcon('heart-outline')
@@ -25,22 +25,22 @@ export default function Item(props){
         return;
       }
       if(heartIcon == 'heart-outline') {
-        dispatch({type: 'ADDFAVORITE', payload: props.id})
+        dispatch({type: 'ADDFAVORITE', payload: props.value.id})
       } else {
-        dispatch({type: 'REMOVEFAVORITE', payload: props.id})
+        dispatch({type: 'REMOVEFAVORITE', payload: props.value.id})
       }
     }
   
       return(
         <View >
-          <TouchableOpacity style={styles.item} onPress={() => navigation.push('DetailScreen',{ title: props.title, coverImage: props.coverImage, address: props.address, description: props.description, }) } >
-            <Image source={{uri: props.coverImage}} style={styles.coverImage} />
+          <TouchableOpacity style={styles.item} onPress={() => navigation.push('DetailScreen',{ value: props.value }) } >
+            <Image source={{uri: props.value.cover}} style={styles.coverImage} />
             <View style={styles.textView}>
               <Text style={styles.textStyle} numberOfLines={1} >
-                {props.title}
+                {props.value.title}
               </Text>
               <Text numberOfLines={1} >
-                Địa chỉ: {props.address}
+                Địa chỉ: {props.value.address}
               </Text>
               <TouchableOpacity onPress={handleFavorite} style={{ alignSelf:'flex-end', marginRight: 20 }} >
                 <Ionicons name={heartIcon} size={25} color='red' />
@@ -72,6 +72,7 @@ export default function Item(props){
       backgroundColor: 'white',
       borderColor: 'gray',
       borderBottomWidth : 1,
+      borderBottomLeftRadius: 25,
       margin: 2,
       borderRadius: 5,
     },

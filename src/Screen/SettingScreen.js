@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Text, View, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Text, View,  StyleSheet, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Setting() {
