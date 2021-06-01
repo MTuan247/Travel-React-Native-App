@@ -26,9 +26,14 @@ function CustomDrawerContent(props) {
             style={styles.logo}
             source={require('../../image/firebase-logo.png')}
           />
-          <View style={{alignItems: 'center', flexDirection: 'column'}}>
-            <Text style={[styles.text,{color: '#bfbfbf' }]}>Welcome </Text>
-            <Text style={styles.text}>{user.fullName}</Text>
+          <View style={{alignItems: 'center', flexDirection: 'column', justifyContent: 'center'}}>
+            <Text style={[styles.text,{color: '#bfbfbf', marginLeft: 15 }]}>Chào mừng</Text>
+            {
+              user.fullName=="Guest" ? (<></>) :(
+                <Text style={styles.text}>{user.fullName}</Text>
+              )
+            }
+            
           </View>
         </TouchableOpacity>
       </View>
@@ -37,13 +42,13 @@ function CustomDrawerContent(props) {
         {
           (user.id != "Guest") ? (
             <DrawerItem
-              label="Logout"
+              label="Đăng xuất"
               icon={({ color, size }) => <Ionicons name="log-out" size={size} color={color} />}
               onPress={() => dispatch({ type: "LOGOUT" })}
             />
           ) : (
             <DrawerItem
-              label="Login"
+              label="Đăng nhập"
               icon={({ color, size }) => <MaterialCommunityIcons name="login" size={size} color={color} />}
               onPress={() => props.navigation.navigate('Account')}
             />

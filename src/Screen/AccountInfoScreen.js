@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, Button } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 function LogoutButton() {
@@ -14,21 +15,26 @@ function LogoutButton() {
 
     return (
         <TouchableOpacity style={styles.button} onPress={() => handleLogout()} >
-            <Text style={styles.buttonTitle}>Logout</Text>
+            <Text style={styles.buttonTitle}>Đăng xuất</Text>
         </TouchableOpacity>
     )
 }
 
 function ChangeInfo() {
     const uinfo = useSelector(state => state.uinfo)
+    const primaryColor = useSelector(state => state.theme.colors.primary)
     const [fullName, setFullName] = useState(uinfo.fullName)
+    const [phone, setPhone] = useState(uinfo.phone)
     const dispatch = useDispatch()
-    const changeName = (fullName) => {
-        dispatch({type: 'RENAME', payload: fullName})
-    }
 
     return (
-        <View>
+        <View style={{backgroundColor: "#e6f2ff", margin: 5, paddingBottom: 20, borderRadius: 5}}>
+            <Image
+                style={styles.logo}
+                source={require('../../image/firebase-logo.png')}
+            />
+            <Text style={styles.textStyle} >Email: </Text>
+            <Text style={styles.textInfo}>{uinfo.email}</Text>
             <Text style={styles.textStyle} >User Name: </Text>
             <TextInput
                 style={styles.textInfo}
@@ -39,6 +45,68 @@ function ChangeInfo() {
                 underlineColorAndroid="transparent"
                 autoCapitalize="none"
             />
+            <Text style={styles.textStyle} >Phone: </Text>
+            <TextInput
+                style={styles.textInfo}
+                placeholder='Phone Number'
+                placeholderTextColor="#aaaaaa"
+                onChangeText={(text) => setPhone(text)}
+                value={phone}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+            />
+            <TouchableOpacity style={[styles.button, {backgroundColor: primaryColor, width: 200}]} >
+                <Text style={styles.buttonTitle}>Cập nhật</Text>
+            </TouchableOpacity>
+            
+        </View>
+
+    )
+}
+
+function ChangePassword(){
+    const uinfo = useSelector(state => state.uinfo)
+    const primaryColor = useSelector(state => state.theme.colors.primary)
+    const [oldPass, setOldPass] = useState()
+    const [newPass, setNewPass] = useState()
+    const [newRePass, setNewRePass] = useState()
+    const dispatch = useDispatch()
+
+    return (
+        <View style={{backgroundColor: "#e6f2ff", margin: 5, paddingBottom: 20, borderRadius: 5}}>
+            <Text style={styles.textStyle} >Mật khẩu cũ</Text>
+            <TextInput
+                style={styles.textInfo}
+                placeholder='Full Name'
+                placeholderTextColor="#aaaaaa"
+                onChangeText={(text) => setOldPass(text)}
+                value={oldPass}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+            />
+            <Text style={styles.textStyle} >Mật khẩu mới: </Text>
+            <TextInput
+                style={styles.textInfo}
+                placeholder='Phone Number'
+                placeholderTextColor="#aaaaaa"
+                onChangeText={(text) =>setNewPass(text)}
+                value={newPass}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+            />
+            <Text style={styles.textStyle} >Nhập lại mật khẩu: </Text>
+            <TextInput
+                style={styles.textInfo}
+                placeholder='Phone Number'
+                placeholderTextColor="#aaaaaa"
+                onChangeText={(text) => setNewRePass(text)}
+                value={newRePass}
+                underlineColorAndroid="transparent"
+                autoCapitalize="none"
+            />
+            <TouchableOpacity style={[styles.button, {backgroundColor: primaryColor, width: 200}]} >
+                <Text style={styles.buttonTitle}>Đổi mật khẩu</Text>
+            </TouchableOpacity>
             
         </View>
 
@@ -47,20 +115,11 @@ function ChangeInfo() {
 
 export default function AccountInfo() {
 
-    const uinfo = useSelector(state => state.uinfo)
-    const navigation = useNavigation();
-
     return (
         <ScrollView style={styles.container}>
-            <Image
-                style={styles.logo}
-                source={require('../../image/firebase-logo.png')}
-            />
-            <Text style={styles.textStyle} >Email: </Text>
-            <Text style={styles.textInfo}>{uinfo.email}</Text>
-            {/* <Text style={styles.textStyle} >User Name: </Text>
-            <Text style={styles.textInfo}>{uinfo.fullName}</Text> */}
+            
             <ChangeInfo />
+            <ChangePassword />
             <LogoutButton />
         </ScrollView>
     )
@@ -69,7 +128,7 @@ export default function AccountInfo() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f2f2f2',
+        backgroundColor: 'white',
     },
 
     textStyle: {

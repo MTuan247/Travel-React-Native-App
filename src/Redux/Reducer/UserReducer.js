@@ -2,7 +2,6 @@ import {firebase} from '../../Firebase/config'
 
 const guestUser = {
     id: "Guest",
-    // email: "Guest@nmt.com",
     fullName: 'Guest',
     favorite: [],
 }
@@ -19,6 +18,7 @@ export default function UserReducer(state = guestUser, action) {
             return action.payload;
 
         case 'LOGOUT':
+            firebase.auth().signOut()
             return guestUser;
 
         case 'ADDFAVORITE':
@@ -26,6 +26,7 @@ export default function UserReducer(state = guestUser, action) {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                phone: state.phone,
                 favorite: [...state.favorite],
             }
             uinfo.favorite.push(action.payload)
@@ -37,6 +38,7 @@ export default function UserReducer(state = guestUser, action) {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                phone: state.phone,
                 favorite: [...state.favorite],
             }
             var index = uinfo.favorite.indexOf(action.payload)
@@ -44,14 +46,16 @@ export default function UserReducer(state = guestUser, action) {
             firebase.firestore().collection('users').doc(uinfo.id).update({ favorite: uinfo.favorite })
             return uinfo;
 
-        case 'RENAME':
+        case 'UPDATE':
             var uinfo = {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                phone: state.phone,
                 favorite: [...state.favorite],
             }
             uinfo.fullName = action.payload;
+            firebase.firestore().collection('users').doc(uinfo.id).update({ ...uinfo })
             return uinfo;
 
         default:

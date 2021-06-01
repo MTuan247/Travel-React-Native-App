@@ -9,7 +9,7 @@ export default function Setting() {
   return (
     <View style={styles.container} >
       <View style={[styles.area,{borderColor: color}]}>
-        <Text style={[styles.textStyle,{color: color}]}>Set Primary Color</Text>
+        <Text style={[styles.textStyle,{color: color}]}>Chọn màu</Text>
         <View style={styles.listStyle}>
           <TouchableOpacity onPress={() => { dispatch({ type: "SETCOLOR", payload: "#595959" }) }}>
             <View style={[styles.choseColor, { backgroundColor: "#595959" }]}>

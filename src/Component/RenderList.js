@@ -56,7 +56,7 @@ export default function RenderList() {
 
   if (loading) return (
     <View style={{}}>
-      <ActivityIndicator size='large' color={primaryColor} />
+      <ActivityIndicator size='large' color={primaryColor} style={{marginTop: 200}} />
     </View>
   )
 

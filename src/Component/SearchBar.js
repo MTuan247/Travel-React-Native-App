@@ -22,7 +22,7 @@ const SearchBar = () => {
   
     return (
       <Searchbar
-        placeholder="Search"
+        placeholder="Tìm kiếm"
         onChangeText={onChangeSearch}
         onIconPress={handleSearch}
         value={searchQuery}
