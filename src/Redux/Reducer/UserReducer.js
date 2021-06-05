@@ -26,6 +26,7 @@ export default function UserReducer(state = guestUser, action) {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                password: state.password,
                 phone: state.phone,
                 favorite: [...state.favorite],
             }
@@ -38,6 +39,7 @@ export default function UserReducer(state = guestUser, action) {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                password: state.password,
                 phone: state.phone,
                 favorite: [...state.favorite],
             }
@@ -50,12 +52,25 @@ export default function UserReducer(state = guestUser, action) {
             var uinfo = {
                 id: state.id,
                 email: state.email,
+                fullName: action.payload.fullName,
+                password: state.password,
+                phone: action.payload.phone,
+                favorite: [...state.favorite],
+            }
+            firebase.firestore().collection('users').doc(uinfo.id).update({ ...uinfo })
+            return uinfo;
+        
+        case 'CHANGEPASSWORD':
+            var uinfo = {
+                id: state.id,
+                email: state.email,
                 fullName: state.fullName,
+                password: action.payload,
                 phone: state.phone,
                 favorite: [...state.favorite],
             }
-            uinfo.fullName = action.payload;
-            firebase.firestore().collection('users').doc(uinfo.id).update({ ...uinfo })
+            firebase.auth().currentUser.updatePassword(action.payload)
+            firebase.firestore().collection('users').doc(uinfo.id).update({ password: action.payload })
             return uinfo;
 
         default:

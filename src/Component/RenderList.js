@@ -5,6 +5,8 @@ import { Text } from 'react-native-elements';
 
 import Item from './Item'
 import { firebase } from '../Firebase/config'
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
 
 const H = Dimensions.get('window').height;
 const W = Dimensions.get('window').width;

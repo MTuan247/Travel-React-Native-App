@@ -24,10 +24,12 @@ function CustomDrawerContent(props) {
         <TouchableOpacity style={styles.header} onPress={() => props.navigation.navigate('Account')}>
           <Image
             style={styles.logo}
-            source={require('../../image/firebase-logo.png')}
+            source={{ uri: 
+              'https://firebasestorage.googleapis.com/v0/b/fir-project-2c4c0.appspot.com/o/unnamed.png?alt=media&token=0fdffafe-812c-4709-9879-690d929ca5eb'
+            }}
           />
-          <View style={{alignItems: 'center', flexDirection: 'column', justifyContent: 'center'}}>
-            <Text style={[styles.text,{color: '#bfbfbf', marginLeft: 15 }]}>Chào mừng</Text>
+          <View style={{alignItems: 'center', flexDirection: 'column', justifyContent: 'center', marginLeft: 15}}>
+            <Text style={[styles.text,{color: '#bfbfbf' }]}>Chào mừng</Text>
             {
               user.fullName=="Guest" ? (<></>) :(
                 <Text style={styles.text}>{user.fullName}</Text>

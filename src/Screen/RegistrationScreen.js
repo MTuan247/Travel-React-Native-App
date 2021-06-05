@@ -30,6 +30,7 @@ export default function RegistrationScreen({ navigation }) {
                     id: uid,
                     email,
                     fullName,
+                    password,
                     phoneNumber: '',
                     address: '',
                     favorite: [],
