@@ -26,8 +26,12 @@ export default function LoginStackScreen() {
                     </>
                 ) : (
                     <>
-                        <LoginStack.Screen name="Login" component={LoginScreen} />
-                        <LoginStack.Screen name="Registration" component={RegistrationScreen} />
+                        <LoginStack.Screen name="Login" component={LoginScreen} options={{
+                            title: "Login"
+                        }} />
+                        <LoginStack.Screen name="Registration" component={RegistrationScreen} options={{
+                            title: "Registration"
+                        }} />
                     </>
                 )
             }

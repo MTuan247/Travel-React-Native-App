@@ -16,7 +16,9 @@ function SettingStackScreen() {
       headerTitleStyle: { color: 'white' },
       headerTintColor: 'white',
     }}>
-      <SettingStack.Screen name="SettingScreen" component={SettingScreen} />
+      <SettingStack.Screen name="SettingScreen" component={SettingScreen} options={{
+        title: "Setting"
+      }} />
     </SettingStack.Navigator>
   );
 }

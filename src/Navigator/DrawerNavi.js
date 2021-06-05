@@ -24,11 +24,18 @@ function CustomDrawerContent(props) {
         <TouchableOpacity style={styles.header} onPress={() => props.navigation.navigate('Account')}>
           <Image
             style={styles.logo}
-            source={require('../../image/firebase-logo.png')}
+            source={{ uri: 
+              'https://firebasestorage.googleapis.com/v0/b/fir-project-2c4c0.appspot.com/o/unnamed.png?alt=media&token=0fdffafe-812c-4709-9879-690d929ca5eb'
+            }}
           />
-          <View style={{alignItems: 'center', flexDirection: 'column'}}>
-            <Text style={[styles.text,{color: '#bfbfbf' }]}>Welcome </Text>
-            <Text style={styles.text}>{user.fullName}</Text>
+          <View style={{alignItems: 'center', flexDirection: 'column', justifyContent: 'center', marginLeft: 15}}>
+            <Text style={[styles.text,{color: '#bfbfbf' }]}>Chào mừng</Text>
+            {
+              user.fullName=="Guest" ? (<></>) :(
+                <Text style={styles.text}>{user.fullName}</Text>
+              )
+            }
+            
           </View>
         </TouchableOpacity>
       </View>
@@ -37,13 +44,13 @@ function CustomDrawerContent(props) {
         {
           (user.id != "Guest") ? (
             <DrawerItem
-              label="Logout"
+              label="Đăng xuất"
               icon={({ color, size }) => <Ionicons name="log-out" size={size} color={color} />}
               onPress={() => dispatch({ type: "LOGOUT" })}
             />
           ) : (
             <DrawerItem
-              label="Login"
+              label="Đăng nhập"
               icon={({ color, size }) => <MaterialCommunityIcons name="login" size={size} color={color} />}
               onPress={() => props.navigation.navigate('Account')}
             />

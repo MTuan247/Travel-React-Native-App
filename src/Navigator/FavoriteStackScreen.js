@@ -19,8 +19,8 @@ export default function FavoriteStackScreen() {
             headerTitleStyle: { color: 'white' },
             headerTintColor: 'white',
         }}>
-            <FavoriteStack.Screen name='FavoriteScreen' component={FavoriteScreen} options={{ headerRight: props => <DropDown />, }} />
-            <FavoriteStack.Screen name='DetailScreen' component={DetailScreen} />
+            <FavoriteStack.Screen name='FavoriteScreen' component={FavoriteScreen} options={{ title: "Favorite", headerRight: props => <DropDown />, }} />
+            <FavoriteStack.Screen name='DetailScreen' component={DetailScreen} options={{title: "Detail"}} />
         </FavoriteStack.Navigator>
     )
 }

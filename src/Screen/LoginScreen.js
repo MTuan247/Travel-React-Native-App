@@ -29,7 +29,7 @@ export default function LoginScreen({ navigation }) {
                         const user = firestoreDocument.data()
                         dispatch({ type: 'SETUSER', payload: user })
                         setLoading(true)
-                        navigation.navigate('Home')
+                        navigation.navigate('HomeScreen')
                     })
                     .catch(error => {
                         setLoading(false);
@@ -43,7 +43,7 @@ export default function LoginScreen({ navigation }) {
     }
 
     if (loading) return (
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color="#4d4d4d" style={{marginTop: 200}} />
     )
 
     return (

@@ -1,11 +1,12 @@
-import React from 'react';
-import { Text, View, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import React, {useState} from 'react';
+import { Text, View, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 import { callNumber, openUrl, sendEmail } from '../Component/OpenUrl'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { Input, Button } from 'react-native-elements';
+import { firebase  } from '../Firebase/config'
 
 const contact = {
   address: "Hà Lỗ, Liên Hà, Đông Anh, Hà Nội",
@@ -52,23 +53,51 @@ function MenuHeader() {
 
 function SendMessageForm() {
 
+  const [subject, setSubject] = useState()
+  const [message, setMessage] = useState()
+
+  const userID = useSelector(state => state.uinfo.id)
+
+  const sendMessage = () => {
+    firebase.firestore()
+    .collection('message')
+    .add({
+      userID: userID,
+      subject: subject,
+      message: message,
+    })
+    .then(
+      () => {
+        Alert.alert(
+          "Success"
+        )
+        setSubject("")
+        setMessage("")
+    })
+  }
+
   const primaryColor = useSelector(state => state.theme.colors.primary)
 
   return (
     <View style={styles.menuHeaderView}>
       <Input
         placeholder='SUBJECT'
+        onChangeText={(text) => setSubject(text)}
+        value={subject}
       />
       <Input
         multiline
         numberOfLines={5}
         placeholder='MESSAGE'
+        onChangeText={(text) => setMessage(text) }
+        value={message}
       />
       <Button buttonStyle={{
         width: 180,
         backgroundColor: primaryColor,
       }}
         title="Send"
+        onPress={() => sendMessage()}
       />
     </View>
   )

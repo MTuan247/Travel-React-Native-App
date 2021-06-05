@@ -2,7 +2,6 @@ import {firebase} from '../../Firebase/config'
 
 const guestUser = {
     id: "Guest",
-    // email: "Guest@nmt.com",
     fullName: 'Guest',
     favorite: [],
 }
@@ -19,6 +18,7 @@ export default function UserReducer(state = guestUser, action) {
             return action.payload;
 
         case 'LOGOUT':
+            firebase.auth().signOut()
             return guestUser;
 
         case 'ADDFAVORITE':
@@ -26,6 +26,8 @@ export default function UserReducer(state = guestUser, action) {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                password: state.password,
+                phone: state.phone,
                 favorite: [...state.favorite],
             }
             uinfo.favorite.push(action.payload)
@@ -37,6 +39,8 @@ export default function UserReducer(state = guestUser, action) {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                password: state.password,
+                phone: state.phone,
                 favorite: [...state.favorite],
             }
             var index = uinfo.favorite.indexOf(action.payload)
@@ -44,14 +48,29 @@ export default function UserReducer(state = guestUser, action) {
             firebase.firestore().collection('users').doc(uinfo.id).update({ favorite: uinfo.favorite })
             return uinfo;
 
-        case 'RENAME':
+        case 'UPDATE':
+            var uinfo = {
+                id: state.id,
+                email: state.email,
+                fullName: action.payload.fullName,
+                password: state.password,
+                phone: action.payload.phone,
+                favorite: [...state.favorite],
+            }
+            firebase.firestore().collection('users').doc(uinfo.id).update({ ...uinfo })
+            return uinfo;
+        
+        case 'CHANGEPASSWORD':
             var uinfo = {
                 id: state.id,
                 email: state.email,
                 fullName: state.fullName,
+                password: action.payload,
+                phone: state.phone,
                 favorite: [...state.favorite],
             }
-            uinfo.fullName = action.payload;
+            firebase.auth().currentUser.updatePassword(action.payload)
+            firebase.firestore().collection('users').doc(uinfo.id).update({ password: action.payload })
             return uinfo;
 
         default:
