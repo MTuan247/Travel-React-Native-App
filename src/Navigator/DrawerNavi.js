@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native'
 import {
   createDrawerNavigator,
@@ -11,6 +11,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useSelector, useDispatch } from 'react-redux'
 
 import BottomTabNavi from './BottomTabNavi';
+import {SplashScreen} from '../Screen'
 
 function CustomDrawerContent(props) {
 
@@ -65,11 +66,24 @@ const Drawer = createDrawerNavigator();
 
 function DrawerNavi() {
 
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000 )
+  })
+
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={BottomTabNavi} options={{
-        drawerIcon: ({ color, size }) => <Ionicons name="ios-home" size={size} color={color} />
-      }} />
+      {
+        (loading) ? (
+          <Drawer.Screen name="SplashScreen" component={SplashScreen} />
+        ) : (
+          <Drawer.Screen name="Home" component={BottomTabNavi} options={{
+            drawerIcon: ({ color, size }) => <Ionicons name="ios-home" size={size} color={color} />
+          }} />
+        )
+      }
+      
     </Drawer.Navigator>
   )
 }

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions, ActivityIndicator } from 'react-native';
+import { View, Dimensions, ActivityIndicator, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Text } from 'react-native-elements';
 
 import Item from './Item'
 import { firebase } from '../Firebase/config'
-import { LogBox } from 'react-native';
-LogBox.ignoreLogs(['Warning: ...']);
+import Loading from './LoadingPopup'
 
 const H = Dimensions.get('window').height;
 const W = Dimensions.get('window').width;
@@ -33,7 +32,7 @@ export default function RenderList() {
     return newTitle.indexOf(newSearch) > -1;
   }
 
-  
+
 
   useEffect(() => {
     const subscriber = firebase.firestore()
@@ -58,7 +57,8 @@ export default function RenderList() {
 
   if (loading) return (
     <View style={{}}>
-      <ActivityIndicator size='large' color={primaryColor} style={{marginTop: 200}} />
+      {/* <ActivityIndicator size='large' color={primaryColor} style={{ marginTop: 200 }} /> */}
+      <Loading />
     </View>
   )
 
@@ -73,13 +73,23 @@ export default function RenderList() {
   )
 
   return (
-    <>
-      {
-        filteredData.map((item) => {
-          if ((item.type == selectedType || selectedType == "All"))
-            return <Item value={item} />
-        })
-      }
-    </>
+    // <>
+    //   {
+    //     filteredData.map((item) => {
+    //       if ((item.type == selectedType || selectedType == "All"))
+    //         return <Item value={item} />
+    //     })
+    //   }
+    // </>
+    <FlatList
+      data={filteredData}
+      extraData={[selectedType, filteredData]}
+      renderItem={({ item }) => {
+        if (item.type == selectedType || selectedType == "All")
+          return <Item value={item} />
+      }}
+      numColumns="1"
+      keyExtractor={item => item.id}
+    />
   )
 }
