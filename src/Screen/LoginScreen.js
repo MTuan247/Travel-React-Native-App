@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { firebase } from '../Firebase/config';
 import { useDispatch } from 'react-redux';
+import { Loading } from '../Component'
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('mtuan2472000@gmail.com');
@@ -43,7 +44,8 @@ export default function LoginScreen({ navigation }) {
     }
 
     if (loading) return (
-        <ActivityIndicator size="large" color="#4d4d4d" style={{marginTop: 200}} />
+        // <ActivityIndicator size="large" color="#4d4d4d" style={{marginTop: 200}} />
+        <Loading />
     )
 
     return (

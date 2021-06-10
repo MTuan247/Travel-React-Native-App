@@ -82,7 +82,7 @@ function ListItem() {
 
 function CoverImage() {
   return (
-    <View>
+    <View style={{ display: 'flex', margin: 1 }}>
       <Image
         source={require('../../image/Cover.jpg')}
         style={styles.coverImage}
