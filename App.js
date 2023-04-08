@@ -1,3 +1,4 @@
+import "setimmediate"
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider, useSelector } from 'react-redux';

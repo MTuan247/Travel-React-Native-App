@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import { initializeApp } from "firebase/app";
 import '@firebase/auth';
 import '@firebase/firestore';
 
@@ -12,10 +12,7 @@ const firebaseConfig = {
   appId: "1:591628393084:web:629e8fccc8a9e56fd547f9",
   measurementId: "G-LNQTHYKJ3H"
 };
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
 
-// firebase.initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 
 export { firebase };
